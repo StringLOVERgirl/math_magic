@@ -40,7 +40,7 @@ function Canvas() {
 
         setSize=()=>{
           window.innerWidth < 1250 ? amp = 1280 / window.innerWidth * 0.35 : amp = 1
-          window.innerWidth < 1250 ? speed = 1280 / window.innerWidth * 0.35 * 0.05 : speed = 0.05
+          window.innerWidth < 1250 ? speed = window.innerWidth / 1280 * 1.5 * 0.05 : speed = 0.05
         let width = window.innerWidth
         let height = window.innerHeight
   
