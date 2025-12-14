@@ -22,11 +22,11 @@ function Canvas() {
 
     let vawe = 5
     let time = 0.05
-    let amp
+    let amp: number
     window.innerWidth < 1250 ? amp = 1280 / window.innerWidth : 1
     let bardiel2:HTMLImageElement, context2:CanvasRenderingContext2D, canvas2:HTMLCanvasElement
     let scale:number
-    let setSize:Function
+    let setSize:any
 
     if(context.current && bardiel.current && canvas.current){
        bardiel.current.src = img
@@ -48,8 +48,10 @@ function Canvas() {
         scale = height/imgheight
         scale = Number(scale.toFixed(2))
         console.log(scale)
-        canvas.current.height = height
-        canvas.current.width = bardiel.current.naturalWidth*scale
+        if (canvas.current){
+          canvas.current.height = height
+          canvas.current.width = bardiel.current.naturalWidth*scale
+        }
        }
        window.addEventListener('resize', setSize)
 
