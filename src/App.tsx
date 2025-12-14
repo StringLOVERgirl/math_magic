@@ -22,7 +22,7 @@ function Canvas() {
 
     let vawe = 5
     let time = 0.05
-    let speed = 
+    let speed: number
     let amp: number
     window.innerWidth < 1250 ? amp = 1280 / window.innerWidth : 1
     let bardiel2:HTMLImageElement, context2:CanvasRenderingContext2D, canvas2:HTMLCanvasElement
