@@ -39,8 +39,8 @@ function Canvas() {
        }
 
         setSize=()=>{
-          window.innerWidth < 1250 ? amp = 1280 / window.innerWidth * 0.35 : amp = 1
-          window.innerWidth < 1250 ? speed = window.innerWidth / 1280 * 2 * 0.05 : speed = 0.05
+          window.innerWidth < 1250 ? amp = 1280 / window.innerWidth * 0.35 : amp = 1.25
+          window.innerWidth < 1250 ? speed = window.innerWidth / 1280 * 2 * 0.05 : speed = 0.04
         let width = window.innerWidth
         let height = window.innerHeight
   
@@ -68,7 +68,7 @@ function Canvas() {
       context2.clearRect(0,0,canvas2.width, canvas2.height)
       context2.drawImage(bardiel2,0,0, canvas2.width, canvas2.height)
       for(let y=canvas2.height/2; y < canvas2.height; y+=vawe ){
-        let offset = Math.sin(3.14+y/20+time)*amp
+        let offset = Math.sin(3.14+y/5+time)*amp
         context2.drawImage(bardiel2, 0, y/scale, canvas2.width/scale, vawe/scale,
          offset, y, canvas2.width, vawe )
       }
