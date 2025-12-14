@@ -24,10 +24,10 @@ function Canvas() {
     let time = 0.05
     let amp: number
     let speed: number
-    window.innerWidth < 1250 ? amp = 1280 / window.innerWidth : 1
     let bardiel2:HTMLImageElement, context2:CanvasRenderingContext2D, canvas2:HTMLCanvasElement
     let scale:number
     let setSize:any
+    let raf: any
 
     if(context.current && bardiel.current && canvas.current){
        bardiel.current.src = img
@@ -71,16 +71,17 @@ function Canvas() {
         let offset = Math.sin(3.14+y/20+time)*amp
         context2.drawImage(bardiel2, 0, y/scale, canvas2.width/scale, vawe/scale,
          offset, y, canvas2.width, vawe )
-         console.log(offset)
       }
       time+=speed
-      requestAnimationFrame(animate)
+      raf = requestAnimationFrame(animate)
     }
     
     }
 
-    return()=>
-    window.removeEventListener('resize', setSize)
+    return()=> {
+      window.removeEventListener('resize', setSize)
+       cancelAnimationFrame(raf)
+    }
   },[])
 
   return(
