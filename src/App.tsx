@@ -22,6 +22,7 @@ function Canvas() {
 
     let vawe = 5
     let time = 0.05
+    let speed = 
     let amp: number
     window.innerWidth < 1250 ? amp = 1280 / window.innerWidth : 1
     let bardiel2:HTMLImageElement, context2:CanvasRenderingContext2D, canvas2:HTMLCanvasElement
@@ -39,7 +40,7 @@ function Canvas() {
 
         setSize=()=>{
           window.innerWidth < 1250 ? amp = 1280 / window.innerWidth * 0.4 : amp = 1
-          window.innerWidth < 1250 ? time =  window.innerWidth / 1280 * 0.4 * 0.05 : time = 0.05
+          window.innerWidth < 1250 ? speed =  window.innerWidth / 1280 * 0.4 * 0.05 : speed = 0.05
         let width = window.innerWidth
         let height = window.innerHeight
   
@@ -72,7 +73,7 @@ function Canvas() {
          offset, y, canvas2.width, vawe )
          console.log(offset)
       }
-      time+=0.05
+      time+=speed
       requestAnimationFrame(animate)
     }
     
