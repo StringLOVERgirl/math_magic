@@ -1,8 +1,35 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { ReactElement, Ref, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import './App.css'
 import img from './bardiel.18.video-poster.jpeg'
 
-function Canvas() {
+function Button ({staticcanvas}:Props){
+  let [placeholder, setph] = useState({ph: 'on', status: false})
+  const button = useRef(null)
+
+  function changePh(){
+    if(!staticcanvas.current)return
+    if (!placeholder.status){
+      setph({ph: 'off', status: true})
+      staticcanvas.current.style.setProperty('--opacity', '0')
+    } else {
+      setph({ph: 'on', status: false})
+      staticcanvas.current.style.setProperty('--opacity', '1')
+    }
+  }
+
+  return(
+    <>
+    <div className="button_cont">
+      <button className='init' onClick={changePh} ref={button}>{placeholder.ph}</button>
+    </div></>
+  )
+}
+
+interface Props {
+  staticcanvas: React.RefObject<HTMLDivElement>;
+}
+
+function Canvas({staticcanvas}:Props) {
 
   const canvas = useRef<HTMLCanvasElement | null>(null);
   const context = useRef<CanvasRenderingContext2D | null>(null);
@@ -13,8 +40,9 @@ function Canvas() {
   let speed: number
   let scale:number
 
-  const setSize = useCallback(():void=>{
-    window.innerWidth < 1250 ? amp = 1280 / window.innerWidth * 0.35 : amp = 1.25
+  const setSize = useCallback((canvas: HTMLCanvasElement|null):void=>{
+    window.innerWidth < 1250 ? amp = 1280 / window.innerWidth * 0.4 : amp = 1.28
+    // than bigger 0.4 than bigger amp (pervious value - 0.35)
     window.innerWidth < 1250 ? speed = window.innerWidth / 1280 * 4 * 0.05 : speed = 0.04//3 или 4 или 5  вмето 2 
     let width = window.innerWidth
     let height = window.innerHeight
@@ -26,15 +54,19 @@ function Canvas() {
     scale = Number(scale.toFixed(2))
     console.log(scale)
 
-    if (canvas.current){
-      canvas.current.height = height
-      canvas.current.width = bardiel.current.naturalWidth*scale
+    if (canvas && staticcanvas.current){
+      canvas.height = height
+      let newwidth:number = Math.floor(bardiel.current.naturalWidth*scale)
+      canvas.width = newwidth
+      staticcanvas.current.style.setProperty('--height', height+'px')
+      staticcanvas.current.style.setProperty('--width', newwidth+'px')
     }
   },[])
 
   useEffect(()=>{
 
-    if (canvas.current){
+    if (canvas.current
+      ){
        context.current=canvas.current.getContext('2d')
        console.log(context.current)
     }
@@ -54,14 +86,16 @@ function Canvas() {
         bardiel2 = bardiel.current
         context2 = context.current
         canvas2 = canvas.current
-        bardiel.current.onload = () => {
+        bardiel2.onload = () => {
           math_magic()
         }
       
-        window.addEventListener('resize', setSize)
+        window.addEventListener('resize',()=> {
+          setSize(canvas.current)
+        })
 
     function math_magic(){
-      setSize()
+      setSize(canvas.current)
       animate()
     }
 
@@ -81,14 +115,18 @@ function Canvas() {
     }
 
     return()=> {
-       window.removeEventListener('resize', setSize)
+       window.removeEventListener('resize', ()=>{
+        setSize(canvas.current)
+      })
        cancelAnimationFrame(raf)
     }
   },[])
 
   return(
     <div className="canvas_cont">
-    <canvas ref={canvas}></canvas>
+    <canvas ref={canvas}>
+    </canvas>
+    <div className="static" ref={staticcanvas}></div>
     <div className="blur_sides"></div>
     </div>
   )
@@ -96,11 +134,16 @@ function Canvas() {
 
 function App() {
   const [count, setCount] = useState(0)
+  const staticcanvas = useRef<HTMLDivElement | null>(null);
 
   return (
     <div className="App">
+      <header>
+        <Button staticcanvas={staticcanvas}></Button>
+        <div className="description">I'm using a sine with params and canvas scaling to create this effect</div>
+      </header>
       <div className="outter">
-        <Canvas></Canvas>
+        <Canvas staticcanvas={staticcanvas}></Canvas>
       </div>
           </div>
   )

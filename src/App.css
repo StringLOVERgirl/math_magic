@@ -45,7 +45,7 @@ button {
 }
 
 .outter {
-  border: solid pink 1px;
+  /* border: solid pink 1px; */
   height: 100vh;
 }
 
@@ -71,4 +71,49 @@ canvas {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+header {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  font-size: 1.5em;
+  z-index: 2;
+  border-radius: 20px;
+  padding-inline: 0.5em;
+  padding-block: 0.25em;
+  background: rgba(0, 0, 0, 0.2);
+  margin: 0.5em;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+
+.static {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: var(--height);
+  opacity: var(--opacity);
+  width: var(--width);
+  filter: sepia(0.2);
+  transition: opacity 1.5s;
+  background: url(./bardiel.18.video-poster.jpeg) center / contain;
+}
+
+.button_cont {
+  white-space: nowrap;;
+}
+.init:hover{
+  background: rgba(188, 129, 129, 0.3); 
+}
+.init {
+  cursor: pointer;
+  border-radius: 20px;
+  transition: background 0.1s;
+  padding-inline: 0.5em;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(188, 129, 129, 0.2);
+  border: unset;
 }
