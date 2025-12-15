@@ -2,18 +2,18 @@ import React, {useCallback, useEffect, useLayoutEffect, useRef, useState } from 
 import './App.css'
 import img from './bardiel.18.video-poster.jpeg'
 
-function Button ({staticcanvas}:Props){
+function Button ({canvas}:Props){
   let [placeholder, setph] = useState({ph: 'on', status: false})
   const button = useRef(null)
 
   function changePh(){
-    if(!staticcanvas.current)return
+    if(!canvas.current)return
     if (!placeholder.status){
       setph({ph: 'off', status: true})
-      staticcanvas.current.style.setProperty('--opacity', '0')
+      canvas.current.style.setProperty('--opacity', '1')
     } else {
       setph({ph: 'on', status: false})
-      staticcanvas.current.style.setProperty('--opacity', '1')
+      canvas.current.style.setProperty('--opacity', '0')
     }
   }
 
@@ -26,12 +26,12 @@ function Button ({staticcanvas}:Props){
 }
 
 interface Props {
-  staticcanvas: React.RefObject<HTMLDivElement>;
+  canvas: React.RefObject<HTMLCanvasElement>;
 }
 
-function Canvas({staticcanvas}:Props) {
+function Canvas({canvas}:Props) {
 
-  const canvas = useRef<HTMLCanvasElement | null>(null);
+  const staticcanvas = useRef<HTMLDivElement | null>(null);
   const context = useRef<CanvasRenderingContext2D | null>(null);
   
   const bardiel = useRef(new Image())
@@ -41,7 +41,7 @@ function Canvas({staticcanvas}:Props) {
   let scale:number
 
   const setSize = useCallback((canvas: HTMLCanvasElement|null):void=>{
-    window.innerWidth < 1250 ? amp = 1280 / window.innerWidth * 0.4 : amp = 1.28
+    window.innerWidth < 1250 ? amp = 1280 / window.innerWidth * 0.3 : amp = 1.28
     // than bigger 0.4 than bigger amp (pervious value - 0.35)
     window.innerWidth < 1250 ? speed = window.innerWidth / 1280 * 4 * 0.05 : speed = 0.04//3 или 4 или 5  вмето 2 
     let width = window.innerWidth
@@ -72,9 +72,10 @@ function Canvas({staticcanvas}:Props) {
     }
 
     let vawe = 6
+    // than smaller - than more frequence
     let time = 0.05
     
-    // let period: number = 5
+
     // than smaller - than more frequence
     
     let bardiel2:HTMLImageElement, context2:CanvasRenderingContext2D, canvas2:HTMLCanvasElement
@@ -135,18 +136,19 @@ function Canvas({staticcanvas}:Props) {
 
 function App() {
   const [count, setCount] = useState(0)
-  const staticcanvas = useRef<HTMLDivElement | null>(null);
+  
+  const canvas = useRef<HTMLCanvasElement | null>(null);
 
   return (
     <div className="App">
       <header>
-        <Button staticcanvas={staticcanvas}></Button>
+        <Button canvas={canvas}></Button>
         <div className="description">I'm using a sine with params and canvas scaling to create this effect</div>
       </header>
       <div className="outter">
-        <Canvas staticcanvas={staticcanvas}></Canvas>
+        <Canvas canvas={canvas}></Canvas>
       </div>
-          </div>
+    </div>
   )
 }
 
