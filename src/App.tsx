@@ -41,12 +41,12 @@ function Canvas({canvas}:Props) {
   let scale:number
 
   const setSize = useCallback((canvas: HTMLCanvasElement|null):void=>{
+    
     window.innerWidth < 1250 ? amp = 1280 / window.innerWidth * 0.3 : amp = 1.28
     // than bigger 0.4 than bigger amp (pervious value - 0.35)
     window.innerWidth < 1250 ? speed = window.innerWidth / 1280 * 4 * 0.05 : speed = 0.04//3 или 4 или 5  вмето 2 
     let width = window.innerWidth
     let height = window.innerHeight
-
     let imgwidth = bardiel.current.naturalWidth
     let imgheight = bardiel.current.naturalHeight
 
