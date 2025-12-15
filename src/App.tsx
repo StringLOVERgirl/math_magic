@@ -1,4 +1,4 @@
-import React, { ReactElement, Ref, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, {useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import './App.css'
 import img from './bardiel.18.video-poster.jpeg'
 
@@ -81,6 +81,11 @@ function Canvas({staticcanvas}:Props) {
     
     let raf: number
 
+  
+    const listener = ()=> {
+      setSize(canvas.current)
+    }
+
     if(context.current && bardiel.current && canvas.current){
         bardiel.current.src = img
         bardiel2 = bardiel.current
@@ -90,9 +95,7 @@ function Canvas({staticcanvas}:Props) {
           math_magic()
         }
       
-        window.addEventListener('resize',()=> {
-          setSize(canvas.current)
-        })
+        window.addEventListener('resize',listener)
 
     function math_magic(){
       setSize(canvas.current)
@@ -115,9 +118,7 @@ function Canvas({staticcanvas}:Props) {
     }
 
     return()=> {
-       window.removeEventListener('resize', ()=>{
-        setSize(canvas.current)
-      })
+       window.removeEventListener('resize', listener)
        cancelAnimationFrame(raf)
     }
   },[])
