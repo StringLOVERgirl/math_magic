@@ -71,10 +71,10 @@ function Canvas({staticcanvas}:Props) {
        console.log(context.current)
     }
 
-    let vawe = 5
+    let vawe = 6
     let time = 0.05
     
-    let period: number = 5
+    // let period: number = 5
     // than smaller - than more frequence
     
     let bardiel2:HTMLImageElement, context2:CanvasRenderingContext2D, canvas2:HTMLCanvasElement
@@ -106,7 +106,7 @@ function Canvas({staticcanvas}:Props) {
       context2.clearRect(0,0,canvas2.width, canvas2.height)
       context2.drawImage(bardiel2,0,0, canvas2.width, canvas2.height)
       for(let y=canvas2.height/2; y < canvas2.height; y+=vawe ){
-        let offset = Math.sin(3.14+y/period+time)*amp
+        let offset = Math.sin(3.14+y/vawe+time)*amp
         context2.drawImage(bardiel2, 
          0, y/scale, canvas2.width/scale, vawe/scale,
          offset, y, canvas2.width, vawe )
