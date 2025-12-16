@@ -3,6 +3,7 @@
   width: 100vw;
   height: 100svh;
   overflow: hidden;
+  --init_bg: rgba(188, 129, 129, 0.2);
 }
 
 .App-logo {
@@ -118,10 +119,12 @@ header {
   transition: background 0.1s;
   padding-inline: 0.5em;
   color: rgba(255, 255, 255, 0.5);
-  background: rgba(188, 129, 129, 0.2);
+  background: var(--init_bg);
   border: unset;
   position: relative;
-  
+}
+.init_default{
+  background: var(--init_bg) !important;
 }
 .init::after {
 /* content: ''; */
@@ -145,7 +148,8 @@ background: url(./mouse.svg) center / contain;
 }
 @media (max-width: 500px)  {
   .init {
-    padding: 0.5em;
+    padding: 1em;
+    font-size: 0.9em;
   }
 }
 

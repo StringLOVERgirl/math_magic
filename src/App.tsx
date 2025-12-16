@@ -5,22 +5,32 @@ import img from './bardiel.18.video-poster.jpeg'
 function Button ({canvas}:Props){
   let [placeholder, setph] = useState({ph: 'on', status: false})
   const button = useRef(null)
+  let [button_bg, setb_bg] = useState('init_default')
+
+    
 
   function changePh(){
     if(!canvas.current)return
     if (!placeholder.status){
       setph({ph: 'off', status: true})
       canvas.current.style.setProperty('--opacity', '1')
+      setb_bg('')
     } else {
       setph({ph: 'on', status: false})
       canvas.current.style.setProperty('--opacity', '0')
+      setb_bg('')
     }
+    if(window.innerWidth<500){
+      setTimeout(()=>{
+        setb_bg('init_default')
+      },200)
+     }
   }
 
   return(
     <>
     <div className="button_cont">
-      <button className='init' onClick={changePh} ref={button}>{placeholder.ph}</button>
+      <button className={`init ${button_bg}`} onClick={changePh} ref={button}>{placeholder.ph}</button>
     </div></>
   )
 }
