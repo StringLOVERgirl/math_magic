@@ -143,8 +143,14 @@ background: url(./mouse.svg) center / contain;
     z-index: 4;
   }
 }
+@media (max-width: 500px)  {
+  .init {
+    padding: 0.5em;
+  }
+}
 
 .canvas_sizes {
+  display: none;
   position: absolute;
   color: white;
   display: flex;
