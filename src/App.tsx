@@ -40,9 +40,11 @@ function Canvas({canvas}:Props) {
   let speed: number
   let scale:number
 
+  let [sizes, sizeset] = useState({width:0,height:0})
+  let [sizesstatic, sizesetstatic] = useState({width:0,height:0})
   const setSize = useCallback((canvas: HTMLCanvasElement|null):void=>{
     
-    window.innerWidth < 1250 ? amp = 1280 / window.innerWidth * 0.3 : amp = 1.28
+    window.innerWidth < 1250 ? amp = 1280 / window.innerWidth * 0.3 : amp = 1.25
     // than bigger 0.4 than bigger amp (pervious value - 0.35)
     window.innerWidth < 1250 ? speed = window.innerWidth / 1280 * 4 * 0.05 : speed = 0.04//3 или 4 или 5  вмето 2 
     let width = window.innerWidth
@@ -58,8 +60,10 @@ function Canvas({canvas}:Props) {
       canvas.height = height
       let newwidth:number = Math.floor(bardiel.current.naturalWidth*scale)
       canvas.width = newwidth
+      sizeset({width: newwidth, height: height})
       staticcanvas.current.style.setProperty('--height', height+'px')
       staticcanvas.current.style.setProperty('--width', newwidth+'px')
+      sizesetstatic({width: staticcanvas.current.clientWidth, height: staticcanvas.current.clientHeight})
     }
   },[])
 
@@ -126,6 +130,8 @@ function Canvas({canvas}:Props) {
 
   return(
     <div className="canvas_cont">
+      <div className="canvas_sizes">{sizes.width +' and '+ sizes.height}</div>
+      <div className="canvas_sizes">{sizesstatic.width +' and '+ sizesstatic.height}</div>
     <canvas ref={canvas}>
     </canvas>
     <div className="static" ref={staticcanvas}></div>
